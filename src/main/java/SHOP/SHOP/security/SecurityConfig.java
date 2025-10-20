@@ -54,10 +54,13 @@ public class SecurityConfig {
                         .requestMatchers("/api/products/admin/**").hasRole("ADMIN") // for POST
                         .requestMatchers("/api/products/**").hasRole("ADMIN") // for PUT, DELETE
                         .requestMatchers("/shop/admin/**").hasRole("ADMIN")
-                        
+
                         .requestMatchers("/shop/api/products/public/**", "/shop/api/categories").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/shop/user/**").hasRole("USER")
                         .requestMatchers("/shop/auth/profile").authenticated()
+                        .requestMatchers("/api/shop/orders").hasRole("USER")
+                        .requestMatchers("/api/shop/orders/orderBy/**").hasAnyRole("USER","ADMIN")
+                        .requestMatchers("/api/shop/orders/update/**").hasRole("ADMIN")
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
