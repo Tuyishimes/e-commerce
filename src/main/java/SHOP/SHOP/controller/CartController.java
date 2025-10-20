@@ -54,8 +54,6 @@ public class CartController {
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("status", "success");
         response.put("message", "Item added to cart successfully");
-
-        // Total price as BigDecimal
         response.put("cart", Map.of(
                 "cart_id", cart.getId(),
                 "total_items", cart.getItems().size(),
@@ -108,16 +106,28 @@ public class CartController {
         return ResponseEntity.ok(response);
     }
 
-    @DeleteMapping("/{itemId}")
-    public ResponseEntity<Map<String, Object>> removeItem(@PathVariable Long itemId) {
-        cartService.removeItem(itemId);
+  //  @DeleteMapping("/{itemId}")
+//    public ResponseEntity<Map<String, Object>> removeItem(@PathVariable Long itemId) {
+//        cartService.removeItem(itemId);
+//
+//        Map<String, Object> response = Map.of(
+//                "status", "success",
+//                "message", "Item removed from cart"
+//        );
+//
+//        return ResponseEntity.ok(response);
+//    }
+  @DeleteMapping("/{itemId}")
+  public ResponseEntity<Map<String, Object>> removeItem(@PathVariable Long itemId) {
+      cartService.removeItem(itemId);
 
-        Map<String, Object> response = Map.of(
-                "status", "success",
-                "message", "Item removed from cart"
-        );
+      Map<String, Object> response = Map.of(
+              "status", "success",
+              "message", "Item removed successfully"
+      );
 
-        return ResponseEntity.ok(response);
-    }
+      return ResponseEntity.ok(response);
+  }
+
 
 }

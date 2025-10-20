@@ -21,6 +21,7 @@ public class OrderService {
     private final CartRepository cartRepository;
     private final CartItemRepository cartItemRepository;
     private final UserRepository userRepository;
+    private final CartService cartService;
 
 
     private User getCurrentUser() {
@@ -52,10 +53,16 @@ public class OrderService {
             orderItem.setQuantity(item.getQuantity());
             orderItem.setPrice(BigDecimal.valueOf(item.getProduct().getPrice().doubleValue()));
             orderItemRepository.save(orderItem);
-
+            //cartService.removeItem(item.getId());
 
         }
-        cartItemRepository.deleteAll(cart.getItems());
+        List<Long> cartItemIds = cart.getItems().stream()
+                .map(CartItem::getId)
+                .toList();
+        for (Long itemId : cartItemIds) {
+            cartService.removeItem(itemId);
+        }
+
 
         return order;
     }

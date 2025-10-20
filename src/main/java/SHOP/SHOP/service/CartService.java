@@ -2,6 +2,7 @@ package SHOP.SHOP.service;
 
 import SHOP.SHOP.model.*;
 import SHOP.SHOP.repository.*;
+import jakarta.transaction.Transactional;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -66,12 +67,29 @@ public class CartService {
         return item.getCart();
     }
 
-    public void removeItem(Long itemId) {
-        CartItem item = cartItemRepository.findById(itemId)
-                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+//    public void removeItem(Long itemId) {
+//        CartItem item = cartItemRepository.findById(itemId)
+//                .orElseThrow(() -> new RuntimeException("Cart item not found"));
+//
+//        cartItemRepository.delete(item);
+//    }
+//   @Transactional
+//  public void removeItem(Long itemId) {
+//    cartItemRepository.deleteByIdCustom(itemId);
+//  }
+@Transactional
+public void removeItem(Long itemId) {
+    CartItem item = cartItemRepository.findById(itemId)
+            .orElseThrow(() -> new RuntimeException("Cart item not found"));
 
-        cartItemRepository.delete(item);
+    Cart cart = item.getCart();
+
+    cartItemRepository.delete(item);
+
+    if (cart.getItems().size() <= 1) {
+        cartRepository.delete(cart);
     }
+}
 
     public List<Cart> getUserCart() {
         User user = getCurrentUser();

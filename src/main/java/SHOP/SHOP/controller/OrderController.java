@@ -2,6 +2,7 @@ package SHOP.SHOP.controller;
 
 import SHOP.SHOP.model.Order;
 import SHOP.SHOP.repository.OrderRepository;
+import SHOP.SHOP.service.CartService;
 import SHOP.SHOP.service.OrderService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -16,6 +17,7 @@ import java.util.Map;
 
 public class OrderController {
     private final OrderService orderService;
+    private final CartService cartService;
 
     @PostMapping
     public ResponseEntity<Map<String, Object>> placeOrder() {
@@ -27,12 +29,13 @@ public class OrderController {
                 "total_price", order.getTotalPrice(),
                 "status_value", order.getStatus()
         ));
+
     }
     @GetMapping
     public ResponseEntity<List<Map<String, Object>>> getUserOrder() {
         return ResponseEntity.ok(orderService.getUserOrder());
     }
-    @GetMapping("/{id}")
+    @GetMapping("orderBy/{id}")
     public ResponseEntity<Map<String, Object>> getOrderById(@PathVariable Long id) {
         return ResponseEntity.ok(orderService.getOrderById(id));
     }
