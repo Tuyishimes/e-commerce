@@ -29,8 +29,8 @@ public class OrderController {
         ));
     }
     @GetMapping
-    public ResponseEntity<List<Order>> getUserOrder(){
-        return  ResponseEntity.ok(orderService.getUserOrder());
+    public ResponseEntity<List<Map<String, Object>>> getUserOrder() {
+        return ResponseEntity.ok(orderService.getUserOrder());
     }
     @GetMapping("orderBy/{id}")
     public  ResponseEntity<Order> getOrderById(@PathVariable Long id){

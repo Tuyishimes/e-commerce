@@ -10,7 +10,9 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Optional;
 
 @Service
@@ -60,10 +62,33 @@ public class OrderService {
 
         return order;
     }
-    public List<Order> getUserOrder() {
-    User user=getCurrentUser();
-    return orderRepository.findByUser(user);
+    public List<Map<String, Object>> getUserOrder() {
+        User user = getCurrentUser();
+        List<Order> orders = orderRepository.findByUser(user);
+
+        return orders.stream().map(order -> {
+            Map<String, Object> orderData = new HashMap<>();
+            orderData.put("orderId", order.getId());
+
+            List<Map<String, Object>> items = order.getOrderItems().stream().map(item -> {
+                Map<String, Object> itemData = new HashMap<>();
+                itemData.put("productName", item.getProduct().getName());
+                itemData.put("price", item.getProduct().getPrice());
+                itemData.put("quantity", item.getQuantity());
+                return itemData;
+            }).toList();
+
+            orderData.put("items", items);
+
+            BigDecimal total = items.stream()
+                    .map(i -> ((BigDecimal) i.get("price")).multiply(BigDecimal.valueOf((Integer) i.get("quantity"))))
+                    .reduce(BigDecimal.ZERO, BigDecimal::add);
+
+            orderData.put("total", total);
+            return orderData;
+        }).toList();
     }
+
     public Order getOrder(Long Id){
         return orderRepository.findById(Id)
                 .orElseThrow(() -> new RuntimeException("Order is now found"));
