@@ -34,7 +34,7 @@ public class OrderController {
     }
     @GetMapping("/{id}")
     public ResponseEntity<Map<String, Object>> getOrderById(@PathVariable Long id) {
-        return ResponseEntity.ok(orderService.getUserOrderByid(id));
+        return ResponseEntity.ok(orderService.getOrderById(id));
     }
     @PutMapping("update/{id}/status")
     public ResponseEntity<Map<String, Object>> updateStatus(
