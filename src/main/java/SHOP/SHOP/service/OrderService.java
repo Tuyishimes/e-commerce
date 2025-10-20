@@ -10,10 +10,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 @Service
 @RequiredArgsConstructor
@@ -75,6 +72,7 @@ public class OrderService {
                 itemData.put("productName", item.getProduct().getName());
                 itemData.put("price", item.getProduct().getPrice());
                 itemData.put("quantity", item.getQuantity());
+                itemData.put("ProductId", item.getId());
                 return itemData;
             }).toList();
 
@@ -89,10 +87,36 @@ public class OrderService {
         }).toList();
     }
 
-    public Order getOrder(Long Id){
-        return orderRepository.findById(Id)
-                .orElseThrow(() -> new RuntimeException("Order is now found"));
+    public Map<String, Object> getOrderById(Long id) {
+        Order order = orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
 
+        Map<String, Object> orderMap = new LinkedHashMap<>();
+        orderMap.put("order_id", order.getId());
+        orderMap.put("order_date", order.getCreatedAt());
+        orderMap.put("status", order.getStatus());
+
+        List<Map<String, Object>> items = order.getOrderItems().stream().map(item -> {
+            Map<String, Object> itemMap = new LinkedHashMap<>();
+            itemMap.put("product_name", item.getProduct().getName());
+            itemMap.put("price", item.getProduct().getPrice());
+            itemMap.put("quantity", item.getQuantity());
+            itemMap.put("subtotal", item.getProduct().getPrice().multiply(BigDecimal.valueOf(item.getQuantity())));
+            return itemMap;
+        }).toList();
+
+        orderMap.put("items", items);
+
+        BigDecimal total = items.stream()
+                .map(i -> (BigDecimal) i.get("subtotal"))
+                .reduce(BigDecimal.ZERO, BigDecimal::add);
+        orderMap.put("total_price", total);
+
+        return orderMap;
+    }
+    public Order getOrder(Long id) {
+        return orderRepository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Order not found"));
     }
     public Order updateStatus(Long id, String status) {
         Order order = getOrder(id);

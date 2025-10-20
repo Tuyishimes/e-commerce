@@ -32,9 +32,9 @@ public class OrderController {
     public ResponseEntity<List<Map<String, Object>>> getUserOrder() {
         return ResponseEntity.ok(orderService.getUserOrder());
     }
-    @GetMapping("orderBy/{id}")
-    public  ResponseEntity<Order> getOrderById(@PathVariable Long id){
-        return ResponseEntity.ok(orderService.getOrder(id));
+    @GetMapping("/{id}")
+    public ResponseEntity<Map<String, Object>> getOrderById(@PathVariable Long id) {
+        return ResponseEntity.ok(orderService.getUserOrderByid(id));
     }
     @PutMapping("update/{id}/status")
     public ResponseEntity<Map<String, Object>> updateStatus(
