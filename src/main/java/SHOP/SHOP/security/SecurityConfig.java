@@ -30,8 +30,6 @@ public class SecurityConfig {
     private final JwtDecoder jwtDecoder;
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
-
-        // Custom converter: map "roles" claim to GrantedAuthority
         JwtAuthenticationConverter jwtAuthConverter = new JwtAuthenticationConverter();
         jwtAuthConverter.setJwtGrantedAuthoritiesConverter(jwt -> {
             Object rolesClaim = jwt.getClaim("roles");
@@ -44,17 +42,14 @@ public class SecurityConfig {
             }
             return List.of();
         });
-
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers("/shop/auth/token", "/shop/auth/register", "/api/public/**").permitAll()
                         .requestMatchers("/api/cart/**").authenticated()
-                        // Admin-only
-                        .requestMatchers("/api/products/admin/**").hasRole("ADMIN") // for POST
-                        .requestMatchers("/api/products/**").hasRole("ADMIN") // for PUT, DELETE
+                        .requestMatchers("/api/products/admin/**").hasRole("ADMIN")
+                        .requestMatchers("/api/products/**").hasRole("ADMIN")
                         .requestMatchers("/shop/admin/**").hasRole("ADMIN")
-
                         .requestMatchers("/shop/api/products/public/**", "/shop/api/categories").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/shop/user/**").hasRole("USER")
                         .requestMatchers("/shop/auth/profile").authenticated()
