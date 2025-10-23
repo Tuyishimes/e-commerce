@@ -46,7 +46,7 @@ public class PaymentController {
 
         return ResponseEntity.ok(response);
     }
-    @GetMapping("/all")
+    @GetMapping("/admin/all")
     public ResponseEntity<List<Map<String, Object>>> getAllPayments() {
         List<Payment> payments = paymentService.getAllPaymentDetails();
 
