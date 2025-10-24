@@ -1,6 +1,8 @@
 package SHOP.SHOP.model;
 import jakarta.persistence.*;
 import lombok.Data;
+import org.springframework.security.core.parameters.P;
+
 import java.math.BigDecimal;
 import java.util.List;
 
@@ -20,6 +22,8 @@ public class Product {
 
     @Column(nullable = false, precision = 10, scale = 2)
     private BigDecimal price;
+    @Column(name="currency", nullable = false,length = 100)
+    private String Currency;
 
     @Column(nullable = false)
     private int stock;
@@ -106,5 +110,13 @@ public class Product {
 
     public void setCartItems(List<CartItem> cartItems) {
         this.cartItems = cartItems;
+    }
+
+    public String getCurrency() {
+        return Currency;
+    }
+
+    public void setCurrency(String currency) {
+        Currency = currency;
     }
 }

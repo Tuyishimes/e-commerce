@@ -26,6 +26,7 @@ public class Order {
     @Column(precision = 10, scale = 2)
     private BigDecimal totalPrice = BigDecimal.ZERO;
 
+
     private LocalDateTime createdAt = LocalDateTime.now();
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
@@ -82,4 +83,6 @@ public class Order {
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
+
+
 }

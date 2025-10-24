@@ -22,9 +22,10 @@ public class OrderItem {
     private Product product;
 
     private int quantity;
-
+    @Column(name="currency", nullable = false,length = 100)
+    private String Currency;
     @Column(precision = 10, scale = 2)
-    private BigDecimal price; // snapshot of product price
+    private BigDecimal price;
 
     public Long getId() {
         return id;
@@ -64,5 +65,13 @@ public class OrderItem {
 
     public void setPrice(BigDecimal price) {
         this.price = price;
+    }
+
+    public String getCurrency() {
+        return Currency;
+    }
+
+    public void setCurrency(String currency) {
+        Currency = currency;
     }
 }

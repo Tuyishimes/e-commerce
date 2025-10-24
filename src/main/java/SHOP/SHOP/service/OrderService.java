@@ -44,6 +44,7 @@ public class OrderService {
         Order order=new Order();
         order.setUser(user);
         order.setTotalPrice(total);
+
         order.setStatus(Order.Status.valueOf("PENDING"));
         order = orderRepository.save(order);
         for (CartItem item : cart.getItems()) {
@@ -51,6 +52,7 @@ public class OrderService {
             orderItem.setOrder(order);
             orderItem.setProduct(item.getProduct());
             orderItem.setQuantity(item.getQuantity());
+            orderItem.setCurrency(item.getProduct().getCurrency());
             orderItem.setPrice(BigDecimal.valueOf(item.getProduct().getPrice().doubleValue()));
             orderItemRepository.save(orderItem);
             //cartService.removeItem(item.getId());

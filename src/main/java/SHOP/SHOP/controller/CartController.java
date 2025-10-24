@@ -65,6 +65,7 @@ public class CartController {
                         "product_id", item.getProduct().getId(),
                         "product_name", item.getProduct().getName(),
                         "quantity", item.getQuantity(),
+                        "CURRENCY", item.getProduct().getCurrency(),
                         "price", item.getProduct().getPrice(),
                         "subtotal", item.getProduct().getPrice()
                                 .multiply(BigDecimal.valueOf(item.getQuantity()))

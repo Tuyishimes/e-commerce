@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -54,7 +55,7 @@ public String generateToken(String username, String role) {
     JwtClaimsSet claims = JwtClaimsSet.builder()
             .issuer("self")
             .issuedAt(now)
-            .expiresAt(now.plus(1, ChronoUnit.HOURS))
+            .expiresAt(now.plus(10, ChronoUnit.MINUTES))
             .subject(username)
             .claim("roles", List.of(authority))
             .build();
