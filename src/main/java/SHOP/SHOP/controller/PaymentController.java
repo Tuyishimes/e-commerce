@@ -33,7 +33,7 @@ public class PaymentController {
         return ResponseEntity.ok(response);
 
     }
-    @GetMapping("/status/{id}")
+    @GetMapping("/status/{Id}")
     public ResponseEntity<Map<String, Object>> getPaymentStatus(@PathVariable Long Id){
         Payment payment = paymentService.getPaymentById(Id);
         Map<String, Object> response = new LinkedHashMap<>();

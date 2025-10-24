@@ -35,6 +35,9 @@ public class PaymentService {
         Order order=orderRepository.findById(OrderId)
                 .orElseThrow(()->new RuntimeException("No order Found"));
         User user=order.getUser();
+        if (order.getStatus() != Order.Status.PENDING) {
+            throw new RuntimeException("Only pending orders can be paid.");
+        }
         Payment payment=new Payment();
         payment.setOrder(order);
         payment.setUser(user);
@@ -46,13 +49,14 @@ public class PaymentService {
         if(result.equals("APPROVED")){
             payment.setStatus("SUCCESS");
             order.setStatus(Order.Status.PAID);
-            orderRepository.save(order);
+
         }
         else{
             payment.setStatus("FAILED");
             order.setStatus(Order.Status.CANCELLED);
             orderRepository.save(order);
         }
+        orderRepository.save(order);
         return paymentRepository.save(payment);
     }
     private String simulateGatewayProcess() {

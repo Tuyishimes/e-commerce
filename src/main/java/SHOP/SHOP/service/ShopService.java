@@ -17,13 +17,14 @@ public class ShopService {
     private final ProductRepository productRepository;
     private final CategoryRepository categoryRepository;
 
-    // Products
+
     public List<Product> getAllProducts() {
         return productRepository.findAll();
     }
 
-    public Optional<Product> getProductById(Long id) {
-        return productRepository.findById(id);
+    public Product getProductById(Long id) {
+        return productRepository.findById(id)
+                .orElseThrow(()->new RuntimeException("Not Found"));
     }
 
     public Product addProduct(Product product) {
@@ -45,7 +46,7 @@ public class ShopService {
         productRepository.deleteById(id);
     }
 
-    // Categories
+
     public List<Category> getAllCategories() {
         return categoryRepository.findAll();
     }
