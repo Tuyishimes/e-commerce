@@ -4,13 +4,14 @@ import SHOP.SHOP.model.Product;
 import SHOP.SHOP.model.Category;
 import SHOP.SHOP.service.ShopService;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
+
 import java.util.stream.Collectors;
 
 @RestController
@@ -23,6 +24,8 @@ public class ShopController {
     // PRODUCTS
     @GetMapping("/products/public")
     public ResponseEntity<List<Map<String,Object>>> getAllProducts() {
+
+
         List<Product> products=shopService.getAllProducts();
         List<Map<String,Object>> Response=products.stream().map(product -> {
             Map<String,Object> map=new LinkedHashMap<>();
