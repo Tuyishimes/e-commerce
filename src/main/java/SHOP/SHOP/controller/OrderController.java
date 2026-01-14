@@ -18,7 +18,6 @@ import java.util.Map;
 public class OrderController {
     private final OrderService orderService;
     private final CartService cartService;
-
     @PostMapping
     public ResponseEntity<Map<String, Object>> placeOrder() {
         Order order = orderService.placeOrder();
