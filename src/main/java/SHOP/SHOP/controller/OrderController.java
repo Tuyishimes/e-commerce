@@ -28,7 +28,6 @@ public class OrderController {
                 "total_price", order.getTotalPrice(),
                 "status_value", order.getStatus()
         ));
-
     }
     @GetMapping
     public ResponseEntity<List<Map<String, Object>>> getUserOrder() {
