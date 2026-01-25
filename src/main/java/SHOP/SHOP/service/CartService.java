@@ -25,6 +25,7 @@ public class CartService {
         return userRepository.findByEmail(email).orElseThrow();
     }
 
+
     public Cart addItem(Long productId, int quantity) {
         User user = getCurrentUser();
         Cart cart = cartRepository.findByUser(user).orElseGet(() -> {
