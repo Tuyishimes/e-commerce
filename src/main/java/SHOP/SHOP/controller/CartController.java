@@ -4,6 +4,8 @@ import SHOP.SHOP.model.Cart;
 import SHOP.SHOP.service.CartService;
 import lombok.NoArgsConstructor;
 import lombok.RequiredArgsConstructor;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,11 +21,12 @@ import java.util.Map;
 
 public class CartController {
     private final CartService cartService;
+    private static final Logger LOG = LoggerFactory.getLogger(CartService.class);
 
     @GetMapping
     public ResponseEntity<List<Object>> getCart() {
         List<Cart> carts = cartService.getUserCart();
-
+        LOG.info("ACTION STARTED Get Cart");
         List<Object> formattedCarts = Collections.singletonList(carts.stream().map(cart -> Map.of(
                 "cart_id", cart.getId(),
                 "total_items", cart.getItems().size(),
@@ -40,7 +43,7 @@ public class CartController {
                                 .multiply(BigDecimal.valueOf(item.getQuantity()))
                 )).toList()
         )).toList());
-
+        LOG.info("Cart: "+formattedCarts);
         return ResponseEntity.ok(formattedCarts);
     }
 
@@ -48,9 +51,10 @@ public class CartController {
     public ResponseEntity<Map<String, Object>> addItem(@RequestBody Map<String ,Object> request){
         Long productId = ((Number) request.get("productId")).longValue();
         int quantity = ((Number) request.get("quantity")).intValue();
+        LOG.info("add it to CART");
 
         Cart cart = cartService.addItem(productId, quantity);
-
+   LOG.info("added cart: "+cart );
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("status", "success");
         response.put("message", "Item added to cart successfully");

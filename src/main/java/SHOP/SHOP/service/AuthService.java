@@ -21,7 +21,7 @@ public class AuthService {
     private final AuthenticationManager authenticationManager;
     private final JwtTokenService jwtTokenService;
     private final PasswordEncoder passwordEncoder;
-    private static final Logger log = LoggerFactory.getLogger(AuthController.class);
+    private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
 
 

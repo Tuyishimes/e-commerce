@@ -1,10 +1,12 @@
 package SHOP.SHOP.service;
 
+import SHOP.SHOP.controller.AuthController;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.oauth2.jose.jws.MacAlgorithm;
 import org.springframework.security.oauth2.jwt.*;
 import org.springframework.stereotype.Service;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import java.time.Instant;
 import java.time.temporal.ChronoUnit;
 import java.util.Date;
@@ -16,10 +18,13 @@ public class JwtTokenService {
 
     private final JwtEncoder encoder;
     private final JwtDecoder decoder;
+    private static final Logger log = LoggerFactory.getLogger(JwtTokenService.class);
 
 
 
-//    public String generateToken(Authentication authentication) {
+
+
+    //    public String generateToken(Authentication authentication) {
 //        Instant now = Instant.now();
 //        String scope = "ROLE_ADMIN";
 //        JwtClaimsSet claims = JwtClaimsSet.builder()
@@ -49,6 +54,7 @@ public class JwtTokenService {
 //}
     //Allowing access by role
 public String generateToken(String username, String role) {
+    log.info("STARTED GENERETATING TOKEN "+username);
     Instant now = Instant.now();
     String authority = "ROLE_" + role.toUpperCase();
 
@@ -59,9 +65,10 @@ public String generateToken(String username, String role) {
             .subject(username)
             .claim("roles", List.of(authority))
             .build();
-
+    log.info("TOKEN HAVE BEEN GENERETED "+username);
     var encoderParameters = JwtEncoderParameters.from(JwsHeader.with(MacAlgorithm.HS256).build(), claims);
     return this.encoder.encode(encoderParameters).getTokenValue();
+
 }
     public Long extractExpirationTime(String token) {
         Jwt jwt = decoder.decode(token);

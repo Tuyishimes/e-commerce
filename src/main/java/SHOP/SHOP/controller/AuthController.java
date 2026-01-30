@@ -27,8 +27,6 @@ public class AuthController {
     private final AuthService authService;
     private final  UserRepository userRepository;
     private static final Logger log = LoggerFactory.getLogger(AuthController.class);
-
-
     @PostMapping("/register")
     public ResponseEntity<AuthResponse> register(@RequestBody RegisterRequest request) {
         log.info("Register customer have started : {}", request);
@@ -48,13 +46,14 @@ public class AuthController {
         String token = authService.authenticate(request.getEmail(), request.getPassword());
         log.info("Requesting token "+request.getEmail());
         return ResponseEntity.ok(new AuthResponse(token));
-       // log.info("Tokene granted "+request.getEmail());
+        log.info("Tokene granted "+request.getEmail());
     }
     @GetMapping("/profile")
 
     public ResponseEntity<?> profile(Authentication authentication) {
         if (authentication == null || !authentication.isAuthenticated()) {
             return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body("User not authenticated");
+
         }
 
         String email = authentication.getName();
