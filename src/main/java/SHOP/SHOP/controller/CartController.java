@@ -54,10 +54,10 @@ public class CartController {
         LOG.info("add it to CART");
 
         Cart cart = cartService.addItem(productId, quantity);
-   LOG.info("added cart: "+cart );
+   //LOG.info("added cart: "+cart );
         Map<String, Object> response = new LinkedHashMap<>();
         response.put("status", "success");
-        response.put("message", "Item added to cart successfully");
+        //response.put("message", "Item added to cart successfully");
         response.put("cart", Map.of(
                 "cart_id", cart.getId(),
                 "total_items", cart.getItems().size(),

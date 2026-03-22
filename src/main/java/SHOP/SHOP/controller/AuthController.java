@@ -46,7 +46,7 @@ public class AuthController {
         String token = authService.authenticate(request.getEmail(), request.getPassword());
         log.info("Requesting token "+request.getEmail());
         return ResponseEntity.ok(new AuthResponse(token));
-        log.info("Tokene granted "+request.getEmail());
+
     }
     @GetMapping("/profile")
 
