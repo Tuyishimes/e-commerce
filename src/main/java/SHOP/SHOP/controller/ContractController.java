@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 public class ContractController {
 
+
     private final SoapService soapService;
 
     public ContractController(SoapService soapService) {
