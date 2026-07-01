@@ -40,4 +40,4 @@ jobs:
           context: .
           push: true
           tags: |
-            ${{ secrets.DOCKERHUB_USERNAME }}/shop:latest
+            ${{ secrets.DOCKERHUB_USERNAME }}/shop_1:latest
