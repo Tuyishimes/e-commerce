@@ -70,13 +70,13 @@ public class ShopController {
 
         return ResponseEntity.status(201).body(response);
     }
-
     @PutMapping("/products/admin/{id}")
     public ResponseEntity<Product> updateProduct(@PathVariable Long id, @RequestBody Product product) {
         return ResponseEntity.ok(shopService.updateProduct(id, product));
     }
 
-    @DeleteMapping("/products/admin/{id}")
+   // @DeleteMapping("/products/admin/{id}")
+   @DeleteMapping("/products/admin/{id}")
     public ResponseEntity<?> deleteProduct(@PathVariable Long id) {
         shopService.deleteProduct(id);
         return ResponseEntity.ok("DELETE"+id);
