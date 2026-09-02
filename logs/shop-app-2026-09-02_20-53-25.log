@@ -1,0 +1,9 @@
+2026-09-02 20:53:25 [main] INFO  SHOP.SHOP.ShopApplication - Starting ShopApplication v0.0.1-SNAPSHOT using Java 17.0.16 with PID 35494 (/Users/tuyishimesosthene/Desktop/Spring boot/SHOP/target/SHOP-0.0.1-SNAPSHOT.jar started by tuyishimesosthene in /Users/tuyishimesosthene/Desktop/Spring boot/SHOP)
+2026-09-02 20:53:25 [main] INFO  SHOP.SHOP.ShopApplication - No active profile set, falling back to 1 default profile: "default"
+2026-09-02 20:53:25 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-09-02 20:53:25 [main] INFO  org.springframework.data.repository.config.RepositoryConfigurationDelegate - Finished Spring Data repository scanning in 103 ms. Found 9 JPA repository interfaces.
+2026-09-02 20:53:25 [main] INFO  org.springframework.boot.web.embedded.tomcat.TomcatWebServer - Tomcat initialized with port 8080 (http)
+2026-09-02 20:53:25 [main] INFO  org.apache.catalina.core.StandardService - Starting service [Tomcat]
+2026-09-02 20:53:25 [main] INFO  org.apache.catalina.core.StandardEngine - Starting Servlet engine: [Apache Tomcat/10.1.44]
+2026-09-02 20:53:25 [main] INFO  org.apache.catalina.core.ContainerBase.[Tomcat].[localhost].[/] - Initializing Spring embedded WebApplicationContext
+2026-09-02 20:53:25 [main] INFO  org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext - Root WebApplicationContext: initialization completed in 838 ms
