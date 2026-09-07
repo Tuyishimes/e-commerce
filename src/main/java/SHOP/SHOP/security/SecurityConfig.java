@@ -45,21 +45,7 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-//                        .requestMatchers("/shop/auth/token", "/shop/auth/register", "/api/public/**").permitAll()
-//                        .requestMatchers("/api/cart/**").authenticated()
-//                        .requestMatchers("/api/products/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/api/products/**").hasRole("ADMIN")
-//                        .requestMatchers("/shop/admin/**").hasRole("ADMIN")
-//                        .requestMatchers("/Contract/**").hasRole("USER")
-//                        .requestMatchers("/shop/api/products/public/**", "/shop/api/categories").hasAnyRole("USER", "ADMIN")
-//                        .requestMatchers("/shop/user/**").hasRole("USER")
-//                        .requestMatchers("/shop/auth/profile").authenticated()
-//                        .requestMatchers("/api/shop/orders").hasRole("USER")
-//                        .requestMatchers("/api/shop/orders/orderBy/**").hasAnyRole("USER","ADMIN")
-//                        .requestMatchers("/api/shop/orders/update/**").hasRole("ADMIN")
-//                        .requestMatchers("/shop/api/payment/pay/**").hasRole("USER")
-//                        .requestMatchers("/shop/api/payment/admin/all").hasRole("ADMIN")
-//                        .requestMatchers("/shop/api/payment/status/**").hasRole("USER")
+
                                 .requestMatchers("/shop/auth/token", "/shop/auth/register", "/api/public/**").permitAll()
                                 .requestMatchers("/api/cart/**").authenticated()
                                 .requestMatchers("/shop/api/products/admin/**").hasRole("ADMIN")
@@ -74,7 +60,7 @@ public class SecurityConfig {
                                 .requestMatchers("/shop/api/payment/pay").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/shop/api/payment/admin/all").hasRole("ADMIN")
                                 .requestMatchers("/shop/api/payment/status/**").hasRole("USER")
-                               // .anyRequest().authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
