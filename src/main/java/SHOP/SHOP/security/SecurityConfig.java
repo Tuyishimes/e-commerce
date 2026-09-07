@@ -60,7 +60,7 @@ public class SecurityConfig {
                                 .requestMatchers("/shop/api/payment/pay").hasAnyRole("USER", "ADMIN")
                                 .requestMatchers("/shop/api/payment/admin/all").hasRole("ADMIN")
                                 .requestMatchers("/shop/api/payment/status/**").hasRole("USER")
-                               // .anyRequest().authenticated()
+
                         .anyRequest().authenticated()
                 )
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
