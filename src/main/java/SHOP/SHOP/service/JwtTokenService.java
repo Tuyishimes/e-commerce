@@ -19,11 +19,6 @@ public class JwtTokenService {
     private final JwtEncoder encoder;
     private final JwtDecoder decoder;
     private static final Logger log = LoggerFactory.getLogger(JwtTokenService.class);
-
-
-
-
-
     //    public String generateToken(Authentication authentication) {
 //        Instant now = Instant.now();
 //        String scope = "ROLE_ADMIN";

@@ -23,11 +23,6 @@ public class AuthService {
     private final PasswordEncoder passwordEncoder;
     private static final Logger log = LoggerFactory.getLogger(AuthService.class);
 
-
-
-    /**
-     * Register a new user and return a JWT token.
-     */
     public String register(String name, String email, String rawPassword, String role) {
         Optional<User> existing = userRepository.findByEmail(email);
         if (existing.isPresent()) {
